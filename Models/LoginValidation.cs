@@ -9,6 +9,7 @@ namespace WepProject.Models
     {
         public LoginValidation() { }
 
+        // Talvez adicionar uma Reflection para mudar a class ou o padrão adapter
         public bool isValidCredentials(UserCredential userCredential)
         {
             //IConnection connection = new ConnectionWithXmlData();
