@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <users>
+        <user>
+            <id>1</id>
+            <email>test@test.com</email>
+            <password>test</password>
+        </user>
+        <user>
+            <id>3</id>
+            <email>r123%t#$!@#!$%/\/\/o@test.com</email>
+            <password>renato</password>
+        </user>
+        <user>
+            <id>2</id>
+            <email>ola@ola</email>
+            <password>/\/\/\/\!@3123141@$!$@#%@%#$$///</password>
+        </user>
+    </users>

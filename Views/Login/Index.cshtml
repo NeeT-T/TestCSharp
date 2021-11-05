@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="~/css/login.css" />
+</head>
+<body>
+    <div id="container">
+        <form method="POST">
+            <fieldset class="login">
+                <legend>Login</legend>
+                <p class="error">@ViewData["error"]</p>
+                <div>
+                    <label for="CompanyName">Email:</label>
+                    <input required class="email-field" type="email" name="Email" value="" />
+                </div>
+                <div>
+                    <label for="ContactName">Senha:</label>
+                    <input required class="password-field" type="password" name="Password" value="" />
+                </div>
+                <div>
+                    <input type="submit" value="Submit" class="submit" />
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>
