@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="~/css/signUp.css" />
+        <title>Cadastro</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    </head>
+    <body>
+        <div id="container">
+            <h1>Cadastro</h1>
+            <form method="POST">
+                <fieldset class="Cadastro">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Email</label>
+                            <input type="email" name="Email" required class="form-control" id="inputEmail4" placeholder="Email">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">Senha</label>
+                            <input type="password" name="Senha" required class="form-control" id="inputPassword" placeholder="Senha">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-2 form-group">
+                            <label for="inputCEP">CEP</label>
+                            <span class="error">@ViewData["errorCep"]</span>
+                            <div class="input-group">
+                                <input required name="Cep" id="inputCep" class="form-control" type="text" placeholder="CEP">
+                                <div class="input-group-append">
+                                    <button id="cep-search" type="button" onclick="CompleteForm()" class="input-group-text"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputCity">Cidade</label>
+                            <input required type="text" name="Cidade" class="form-control" id="inputCity" placeholder="Cidade">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputEstado">Estado</label>
+                            <input required type="text" name="Estado" id="inputEstado" class="form-control" placeholder="Estado"> </input>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-5">
+                            <label for="inputLogradouro">Logradouro</label>
+                            <input required type="text" name="Logradouro" class="form-control" id="inputLogradouro" placeholder="Rua dos Bobos, nº 0">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="Bairro">Bairro</label>
+                            <input required type="text" name="Bairro" class="form-control" id="inputLocale" placeholder="Bairro">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="Complemmento">Complemento</label>
+                            <input required type="text" name="Complemento" class="form-control" id="inputComplemento" placeholder="Complemento" >
+                        </div>
+                    </div>
+                </fieldset>
+                <button type="submit" class="btn btn-primary col-md-12">Submit</button>
+                <!--<input id="submit" class="col-md-12" value="Submit" type="button"></input>-->
+            </form>
+            <p></p>
+            <a class="" asp-area="" asp-controller="SignIn" asp-action="Index">Já tem uma conta?!</a>
+        </div>
+        <script type="text/javascript">
+            function CompleteForm() {
+                var cep = $('#inputCep').val();
+                $.get(`/SignUp/GetAllAddressFromCep?cep=${cep}`, (data) => {
+                    $('#inputCity').val(data?.localidade);
+                    $('#inputEstado').val(data?.uf);
+                    $('#inputLogradouro').val(data?.logradouro);
+                    $('#inputLocale').val(data?.bairro);
+                    $('#inputCompelemto').val(data?.complemento);
+                });
+            }
+        </script>
+        <!--<script src="../../wwwroot/js/CompleteForm.js"></script>-->
+    </body>
+</html>

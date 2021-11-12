@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" href="~/css/login.css" />
+    <link rel="stylesheet" href="~/css/signIn.css" />
 </head>
 <body>
     <div id="container">
@@ -11,18 +11,21 @@
                 <legend>Login</legend>
                 <p class="error">@ViewData["error"]</p>
                 <div>
-                    <label for="CompanyName">Email:</label>
-                    <input required class="email-field" type="email" name="Email" value="" />
+                    <label for="Email">Email:</label>
+                    <input required class="email-field" type="email" name="Email" />
                 </div>
                 <div>
-                    <label for="ContactName">Senha:</label>
-                    <input required class="password-field" type="password" name="Password" value="" />
+                    <label for="Senha">Senha:</label>
+                    <input required class="password-field" type="password" name="Password" />
                 </div>
                 <div>
                     <input type="submit" value="Submit" class="submit" />
                 </div>
             </fieldset>
         </form>
+        <div id="criar-conta-txt">
+            <a class="" asp-area="" asp-controller="SignUp" asp-action="Index">Criar conta</a>
+        </div>
     </div>
 </body>
 </html>
