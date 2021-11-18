@@ -1,0 +1,39 @@
+#container {
+    align-items: center;
+    position: absolute;
+    width:90%;
+    display: inline-block;
+    position: relative;
+    margin-top: 6%;
+    margin-left: 5%;
+}
+
+.error {
+    color: red;
+}
+
+.success {
+    color: green;
+}
+
+#submit:disabled {
+    background-color: #808080;
+    border-color: #808080;
+}
+
+#btn-editar:disabled {
+    background-color: #808080;
+    border-color: #808080;
+}
+
+#btn-group {
+    margin-top: 5%;
+    margin-left: 10%;
+}
+
+#cep-search:hover {
+    transform: scale(1.1);
+    &.grow {
+        transition: all .2s ease-in-out;
+    }
+}

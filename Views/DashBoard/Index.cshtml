@@ -1,22 +1,88 @@
 <!DOCTYPE html>
 <html>
+@{
+    Layout = null;
+}
 <head>
     <title>DashBoard</title>
     <link rel="stylesheet" href="~/css/dashboard.css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 <body>
-    <div id="container">
-        @model User
-        <h1 class="h1">Login feito com sucesso</h1>
-        <h3>Client info</h3>
-        <p>@Model.Email</p>
-        <p>@Model.Senha</p>
-        <p>@Model.Address.Cep</p>
-        <p>@Model.Address.Localidade</p>
-        <p>@Model.Address.UF</p>
-        <p>@Model.Address.Logradouro</p>
-        <p>@Model.Address.Bairro</p>
-        <p>@Model.Address.Complemento</p>
+    <div class="container-flex">
+        <header id="header">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="#">Wep</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#">Disabled</a>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+            </nav>
+        </header>
+
+        <h6 class="error">@ViewData["error"]</h6>
+        <h6 class="success">@ViewData["success"]</h6>
+        <div class="grid-container grid-space">
+            <div class="">ID:</div>
+            <div class="">Email:</div>
+            <div class="">CEP:</div>
+        </div>
+
+        @model IEnumerable<User>
+        @foreach (var user in Model.OrderBy(u => u.Id))
+        {
+            <div class="grid-container">
+                <div class="grid-item">@user.Id</div>
+                <div class="grid-item">@user.Email</div>
+                <div class="grid-item">@user.Address.Cep</div>
+                <div class="" id="btn-detalhes"><a type="button" class="btn btn-light" asp-area="" asp-controller="DashBoard" asp-action="User" asp-route-id=@user.Id>Ver mais...</a></div>
+                <div class=""><button type="button" class="btn btn-danger" onclick="removeUser(@user.Id)" >Excluir</button></div>
+            </div>
+                
+            <!-- Modal Excluir -->
+            <div class="modal fade" name="modal" type="modal-excluir" tabindex="-1" role="dialog" aria-labelledby="TituloModalCentralizado" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Deseja realmente remover o User: @user.Id
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-danger">Sim</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Excluir -->
+        }
     </div>
+    <script type="text/javascript">
+        function removeUser(id) {
+            if (confirm(`Deseja realmente excluir o usuário: ${id}`)) {
+                $.get(`/DashBoard/RemoveUser?id=${id}`, (data) => location.reload());
+            }
+        }
+    </script>
 </body>
 </html>

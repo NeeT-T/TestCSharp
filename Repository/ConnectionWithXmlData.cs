@@ -3,11 +3,10 @@ using System.IO;
 using System.Xml;
 using WepProject.Models;
 using System.Collections.Generic;
-using WepProject.Interfaces.Connection;
 
 namespace WepProject.Database
 {
-    public class ConnectionWithXmlData : IConnection
+    public class ConnectionWithXmlData
     {
         private const string _pathDataFile = "Database/DataFile.xml";
 

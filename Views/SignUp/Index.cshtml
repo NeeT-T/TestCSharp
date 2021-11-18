@@ -6,11 +6,11 @@
         <title>Cadastro</title>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
     </head>
     <body>
-        <div id="container">
+        <div class="container-flex">
             <h1>Cadastro</h1>
+            <h6 class="error">@ViewData["error"]</h6>
             <form method="POST">
                 <fieldset class="Cadastro">
                     <div class="form-row">
@@ -26,7 +26,6 @@
                     <div class="form-row">
                         <div class="col-md-2 form-group">
                             <label for="inputCEP">CEP</label>
-                            <span class="error">@ViewData["errorCep"]</span>
                             <div class="input-group">
                                 <input required name="Cep" id="inputCep" class="form-control" type="text" placeholder="CEP">
                                 <div class="input-group-append">
@@ -59,7 +58,6 @@
                     </div>
                 </fieldset>
                 <button type="submit" class="btn btn-primary col-md-12">Submit</button>
-                <!--<input id="submit" class="col-md-12" value="Submit" type="button"></input>-->
             </form>
             <p></p>
             <a class="" asp-area="" asp-controller="SignIn" asp-action="Index">Já tem uma conta?!</a>
@@ -76,6 +74,5 @@
                 });
             }
         </script>
-        <!--<script src="../../wwwroot/js/CompleteForm.js"></script>-->
     </body>
 </html>

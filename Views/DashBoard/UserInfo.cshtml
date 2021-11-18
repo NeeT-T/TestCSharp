@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+@{
+    Layout = null;
+}
+<head>
+    <meta charset="UTF-8">
+    <title>DashBoard User</title>
+    <link rel="stylesheet" href="~/css/userDetails.css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+    @model User
+    <header id="header">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Wep</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Disabled</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+    <div id="datas">
+        <p hidden id="user-id">@Model.Id</p>
+        <p hidden id="user-email">@Model.Email</p>
+        <p hidden id="user-senha">@Model.Senha</p>
+        <p hidden id="user-cep">@Model.Address.Cep</p>
+        <p hidden id="user-localidade">@Model.Address.Localidade</p>
+        <p hidden id="user-uf">@Model.Address.UF</p>
+        <p hidden id="user-logradouro">@Model.Address.Logradouro</p>
+        <p hidden id="user-bairro">@Model.Address.Bairro</p>
+        <p hidden id="user-complemento">@Model.Address.Complemento</p>
+    </div>
+
+    <div id="container">
+        <h1>User: @Model.Id</h1>
+        <h6 class="error">@ViewData["error"]</h6>
+        <h6 class="success">@ViewData["success"]</h6>
+        <form method="POST">
+            <fieldset class="Cadastro">
+            <input hidden type="text" name="Id" id="inputId" >
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Email</label>
+                        <input disabled type="email" name="Email" required class="form-control" id="inputEmail" placeholder="Email">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4">Senha</label>
+                        <input disabled type="password" name="Senha" required class="form-control" id="inputPassword" placeholder="Senha">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-2 form-group">
+                        <label for="inputCEP">CEP</label>
+                        <span class="error">@ViewData["errorCep"]</span>
+                        <div class="input-group">
+                            <input disabled required name="Cep" id="inputCep" class="form-control" type="text" placeholder="CEP">
+                            <div class="input-group-append">
+                                <button id="cep-search" type="button" onclick="CompleteForm()" class="input-group-text"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">Cidade</label>
+                        <input required disabled type="text" name="Cidade" class="form-control" id="inputCity" placeholder="Cidade">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputEstado">Estado</label>
+                        <input required disabled type="text" name="Estado" id="inputEstado" class="form-control" placeholder="Estado"> </input>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <label for="inputLogradouro">Logradouro</label>
+                        <input required disabled type="text" name="Logradouro" class="form-control" id="inputLogradouro" placeholder="Rua dos Bobos, nº 0">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="Bairro">Bairro</label>
+                        <input required disabled type="text" name="Bairro" class="form-control" id="inputLocale" placeholder="Bairro">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="Complemmento">Complemento</label>
+                        <input required disabled type="text" name="Complemento" class="form-control" id="inputComplemento" placeholder="Complemento" >
+                    </div>
+                </div>
+            </fieldset>
+            <div id="btn-group" class="form-row">
+                <div class="form-group col-md-4">
+                    <button onclick="changeButtonsAccess()" id="btn-editar" type="button" class="btn btn-warning col-md-4">Editar</button>
+                </div>
+                <div class="form-group col-md-4">
+                    <button disabled id="submit" type="submit" class="btn btn-success col-md-4">Salvar</button>
+                </div>
+                <div class="form-group col-md-4">
+                    <a class="btn btn-secondary col-md-4" type"button" asp-controller="DashBoard" asp-action="Index">Voltar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        function CompleteForm() {
+            var cep = $('#inputCep').val();
+            $.get(`/SignUp/GetAllAddressFromCep?cep=${cep}`, (data) => {
+                $('#inputCity').val(data?.localidade);
+                $('#inputEstado').val(data?.uf);
+                $('#inputLogradouro').val(data?.logradouro);
+                $('#inputLocale').val(data?.bairro);
+                $('#inputCompelemto').val(data?.complemento);
+            });
+        }
+        function changeButtonsAccess() {
+            $('#btn-editar').prop('disabled', true);
+            $("#submit").removeAttr("disabled");
+            $("#inputEmail").removeAttr("disabled");
+            $("#inputPassword").removeAttr("disabled");
+            $("#inputCep").removeAttr("disabled");
+            $("#inputCity").removeAttr("disabled");
+            $("#inputEstado").removeAttr("disabled");
+            $("#inputLogradouro").removeAttr("disabled");
+            $("#inputLocale").removeAttr("disabled");
+            $("#inputComplemento").removeAttr("disabled");
+        }
+        $(document).ready(function() {
+            let id = $('#user-id').text();
+            let email = $('#user-email').text();
+            let senha = $('#user-senha').text();
+            let cep = $('#user-cep').text();
+            let localidade = $('#user-localidade').text();
+            let uf = $('#user-uf').text();
+            let logradouro = $('#user-logradouro').text();
+            let bairro = $('#user-bairro').text();
+            let complemento = $('#user-complemento').text();
+            $('#inputId').val(id);
+            $('#inputEmail').val(email);
+            $('#inputPassword').val(senha);
+            $('#inputCep').val(cep);
+            $('#inputCity').val(localidade);
+            $('#inputEstado').val(uf);
+            $('#inputLogradouro').val(logradouro);
+            $('#inputLocale').val(bairro);
+            $('#inputComplemento').val(complemento);
+        });
+    </script>
+</body>
+</html>

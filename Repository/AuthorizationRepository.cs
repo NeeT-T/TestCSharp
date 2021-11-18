@@ -4,20 +4,16 @@ using System.Data;
 using System.Data.SqlClient;
 using WepProject.Models;
 
-namespace WepProject.Database
+namespace WepProject.Repository
 {
-    //Melhorias:
-    //- Separar as dependencias! Fazer com que as classes Connection
-    //sejam apenas para conectar no banco e não para acessar dados
-    //- Arrumar uma forma melhor de serialização melhor.
 
-    public class ConnectionWithSqlServer 
+    public class AuthorizationRepository 
     {
         private const string connectionString = "Server=localhost;Database=wep;User Id=sa;Password=Senha_root";
 
-        public ConnectionWithSqlServer() { }
+        public AuthorizationRepository() { }
 
-        public User GetUsersByCredentials(string email, string password)
+        public User GetUserByCredentials(string email, string password)
         {
             User user = new User();
             using (var conn = new SqlConnection(connectionString))
@@ -54,8 +50,9 @@ namespace WepProject.Database
             return (user != null) ? user : null;
         }
 
-        private User SetUser(SqlDataReader reader)
+        public User SetUser(SqlDataReader reader)
         {
+            var id = reader.GetInt32(0);
             var email = reader.GetString(1);
             var senha = reader.GetString(2);
             var cep = reader.GetString(3);
@@ -65,37 +62,7 @@ namespace WepProject.Database
             var bairro = reader.GetString(7);
             var complemento = reader.GetString(8);
             Address address = new Address(cep, cidade, estado, logradouro, bairro, complemento);
-            return new User(email, senha, address);
+            return new User(id, email, senha, address);
         }
-
-        public int HasEmail(string email)
-        {
-            int rows = 0;
-            using (var conn = new SqlConnection(connectionString))
-            {
-                string query = "SELECT * FROM users WHERE Email = @email";
-                var cmd = new SqlCommand(query, conn);
-
-                cmd.Parameters.Add("@email", SqlDbType.VarChar, 255);
-
-                cmd.Parameters["@email"].Value = email;
-
-                try 
-                {
-                    conn.Open();
-                    cmd.Prepare();
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        if (reader.HasRows) rows++;
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
-            }
-            return rows;
-        }
-
     }
 }

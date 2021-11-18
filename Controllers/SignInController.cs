@@ -1,4 +1,5 @@
 using System;
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WepProject.Models;
@@ -18,10 +19,11 @@ namespace WepProject.Controllers
         {
             if (!String.IsNullOrEmpty(email) && !String.IsNullOrEmpty(password))
             {
-                User user = VerifyCredential.IsValidCredentials(email, password);
+                var user = VerifyCredential.IsValidCredentials(email, password);
                 if (user != null) 
                 {
-                    return View("../DashBoard/Index", user);
+                    TempData["CurrentUser"] = JsonSerializer.Serialize<User>(user);
+                    return RedirectToAction("Index", "DashBoard");
                 }
                 ViewData["error"] = "*Invalid credentials, verify your email or password";
             }

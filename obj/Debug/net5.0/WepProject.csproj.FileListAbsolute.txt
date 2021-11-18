@@ -47,3 +47,4 @@
 /home/rts/Solutis/Trainee/parte1/WepProject/obj/Debug/net5.0/Razor/Views/SignIn/Index.cshtml.g.cs
 /home/rts/Solutis/Trainee/parte1/WepProject/obj/Debug/net5.0/Razor/Views/DashBoard/Index.cshtml.g.cs
 /home/rts/Solutis/Trainee/parte1/WepProject/obj/Debug/net5.0/Razor/Views/SignUp/Index.cshtml.g.cs
+/home/rts/Solutis/Trainee/parte1/WepProject/obj/Debug/net5.0/Razor/Views/DashBoard/UserInfo.cshtml.g.cs

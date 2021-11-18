@@ -22,5 +22,10 @@ namespace WepProject.Models
             Bairro = bairro;
             Complemento = complemento;
         }
+
+        public bool Equals(Address address)
+        {
+            return this.Cep == address.Cep && this.Logradouro == address.Logradouro && this.Complemento == address.Complemento && this.Bairro == address.Bairro && this.Localidade == address.Localidade && this.UF == address.UF;
+        }
     }
 }

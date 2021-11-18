@@ -22,25 +22,27 @@ namespace WepProject.Controllers
         public IActionResult Index(string email, string senha, string cep, string cidade, string estado,
                 string logradouro, string bairro, string complemento)
         {
+            cep = cep.Replace("-", "");
             if (String.IsNullOrEmpty(email) || String.IsNullOrEmpty(senha) || String.IsNullOrEmpty(cep) ||
                     String.IsNullOrEmpty(cidade) || String.IsNullOrEmpty(estado) || 
                     String.IsNullOrEmpty(logradouro) || String.IsNullOrEmpty(bairro) || 
                     String.IsNullOrEmpty(complemento)
                     ) return View();
 
-            if (VerifyCredential.HasEmail(email)) 
-            {
-                ViewData["error"] = "Email já cadastrado";
-                return View();
-            }
-
-            cep = cep.Replace("-", "");
             Address address = new Address(cep, cidade, estado, logradouro, bairro, complemento);
             User user = new User(email, senha, address); 
 
-            if (user.AddToDb() > 0)
+            if (user.HasEqualEmail()) 
             {
-                return View("../DashBoard/Index", user);
+                ViewData["error"] = "Email já foi registrado por outro usuário";
+                return View();
+            }
+
+            user.Id = user.AddToDb();
+            if (user.Id > 0)
+            {
+                TempData["CurrentUser"] = JsonSerializer.Serialize<User>(user);
+                return RedirectToAction("Index", "DashBoard");
             }
 
             ViewData["error"] = "Houve um problema ao salvar os dados tente novamente";
@@ -53,7 +55,6 @@ namespace WepProject.Controllers
             cep = cep.Replace("-", "");
             if (isInvalidCep(cep))
             {
-                ViewData["errorCep"] = "Cep Invalido";
                 return new Address();
             }
 
@@ -80,19 +81,14 @@ namespace WepProject.Controllers
                             }
                         }
                     }
-                    ViewData["errorCep"] = "Funcionalidade Indisponivel no momento";
                 }
             }
             catch (WebException e)
             {
-                Console.WriteLine("Cep InvalidoWex");
-                ViewData["errorCep"] = "Cep Invalido";
                 Console.WriteLine("WebException Raised. The following error occurred : {0}", e.Status);
             }
             catch (Exception e)
             {
-                Console.WriteLine("Cep InvalidoEx");
-                ViewData["errorCep"] = "Cep Invalido";
                 Console.WriteLine("\nThe following Exception was raised : {0}",e.Message);
             }
             return new Address();
