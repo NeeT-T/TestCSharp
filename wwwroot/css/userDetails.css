@@ -21,6 +21,10 @@
     border-color: #808080;
 }
 
+#sair {
+    margin-left: 90%;
+}
+
 #btn-editar:disabled {
     background-color: #808080;
     border-color: #808080;

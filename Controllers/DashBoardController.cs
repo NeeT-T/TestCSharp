@@ -43,7 +43,7 @@ namespace WepProject.Controllers
             User currentUserData = new User().GetUserById(newUserData.Id);
             if (newUserData.Equals(currentUserData))
             {
-                ViewData["success"] = "Os dados inseridos são identicos aos dados já cadastrados";
+                ViewData["success"] = "Dados atualizados";
                 return View("UserInfo", currentUserData);
             }
             if (newUserData.Email != currentUserData.Email)

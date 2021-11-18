@@ -12,6 +12,10 @@
     margin-top: 3%;
 }
 
+#sair {
+    margin-left: 90%;
+}
+
 .grid-item {
     border: 1px solid #000;
     padding: 1%;
