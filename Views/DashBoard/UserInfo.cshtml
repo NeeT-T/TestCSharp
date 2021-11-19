@@ -56,7 +56,12 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputPassword4">Senha</label>
-                        <input disabled type="password" name="Senha" required class="form-control" id="inputPassword" placeholder="Senha">
+                        <div class="input-group">
+                            <input disabled type="password" name="Senha" required class="form-control" id="inputPassword" placeholder="Senha">
+                            <div class="input-group-append">
+                                <button id="cep-search" type="button" onclick="SeePassword()" class="input-group-text"><i class="fa fa-eye"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-row">
@@ -120,7 +125,6 @@
             });
         }
         function changeButtonsAccess() {
-            $('#btn-editar').prop('disabled', true);
             $("#submit").removeAttr("disabled");
             $("#inputEmail").removeAttr("disabled");
             $("#inputPassword").removeAttr("disabled");
@@ -130,6 +134,9 @@
             $("#inputLogradouro").removeAttr("disabled");
             $("#inputLocale").removeAttr("disabled");
             $("#inputComplemento").removeAttr("disabled");
+            $('#btn-editar').text("Cancelar");
+            $('#btn-editar').attr("class", "btn btn-danger col-md-5");
+            $('#btn-editar').attr("onclick", "location.reload()");
         }
         $(document).ready(function() {
             let id = $('#user-id').text();
@@ -151,6 +158,14 @@
             $('#inputLocale').val(bairro);
             $('#inputComplemento').val(complemento);
         });
+        function SeePassword() {
+           var i = $("#inputPassword");
+           if (i.attr("type") === "password") {
+               i.attr("type", "text");
+           } else {
+               i.attr("type", "password");
+           }
+        }
     </script>
 </body>
 </html>

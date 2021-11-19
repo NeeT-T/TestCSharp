@@ -20,7 +20,12 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputPassword4">Senha</label>
-                            <input type="password" name="Senha" required class="form-control" id="inputPassword" placeholder="Senha">
+                            <div class="input-group">
+                                <input type="password" name="Senha" required class="form-control" id="inputPassword" placeholder="Senha">
+                                <div class="input-group-append">
+                                    <button id="cep-search" type="button" onclick="SeePassword()" class="input-group-text"><i class="fa fa-eye"></i></button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-row">
@@ -49,8 +54,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="Bairro">Bairro</label>
-                            <input required type="text" name="Bairro" class="form-control" id="inputLocale" placeholder="Bairro">
-                        </div>
+                            <input required type="text" name="Bairro" class="form-control" id="inputLocale" placeholder="Bairro"> </div>
                         <div class="form-group col-md-3">
                             <label for="Complemmento">Complemento</label>
                             <input required type="text" name="Complemento" class="form-control" id="inputComplemento" placeholder="Complemento" >
@@ -72,6 +76,14 @@
                     $('#inputLocale').val(data?.bairro);
                     $('#inputCompelemto').val(data?.complemento);
                 });
+            }
+            function SeePassword() {
+               var i = $("#inputPassword");
+               if (i.attr("type") === "password") {
+                   i.attr("type", "text");
+               } else {
+                   i.attr("type", "password");
+               }
             }
         </script>
     </body>
